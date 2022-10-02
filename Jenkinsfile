@@ -20,7 +20,7 @@ pipeline {
          steps {
            sh '''
 	   cat pom.xml
-	   mvn clean package
+	   mvn clean install -U  -Dmaven.test.skip=true
            '''
          }
 }
