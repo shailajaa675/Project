@@ -12,7 +12,7 @@ pipeline {
    	stage('checkout') {
          steps {
             // Get some code from a GitHub repositoryn
-            git 'https://github.com/wakaleo/game-of-life.git'
+            git 'https://github.com/wakaleo/jenkins-the-definitive-guide-book.git'
         }
        
         }
