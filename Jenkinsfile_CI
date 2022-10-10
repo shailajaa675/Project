@@ -1,0 +1,39 @@
+pipeline {
+   agent any
+	options {
+		buildDiscarder(logRotator(numToKeepStr: '7', artifactNumToKeepStr: '7'))
+		disableConcurrentBuilds()
+	}
+   
+//environment {
+
+      //sonar_url = 'http://18.224.57.72:9000/'
+      //sonar_username = 'admin'
+      //sonar_password = 'admin'
+//}  
+ 
+   stages {
+   	stage('checkout') {
+         steps {
+            // Get some code from a GitHub repositoryn
+            git 'https://github.com/miguno/java-docker-build-tutorial.git'
+        }
+       
+        }
+    stage ('Compile and Build') {
+         steps {
+           sh '''
+	   cat Dockerfile
+	   sudo docker build -t miguno/java-docker-build-tutorial:12345 .
+     docker run -p 8123:8123 miguno/java-docker-build-tutorial:12345
+           '''
+         }
+}
+       }
+
+	   post {
+        always {
+              emailtext body: 'build success is ${BUILD_NUMBER}', subject:'Build success', to:'ramyaupputuri99@gmail.com'
+            }
+           }        
+}
